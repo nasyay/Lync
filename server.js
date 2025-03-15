@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const sodium = require("sodium-native");
-<<<<<<< HEAD
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 
@@ -23,11 +22,9 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`);
     next();
 });
-=======
 
 const app = express();
 app.use(express.json());
->>>>>>> 31469e3 (Add react-native to dependencies)
 
 // Store messages temporarily in memory
 let messages = [];
@@ -42,11 +39,8 @@ function encryptMessage(plaintext) {
 
     const plaintextBuffer = Buffer.from(plaintext, "utf-8");
     const ciphertext = Buffer.alloc(plaintextBuffer.length + sodium.crypto_secretbox_MACBYTES);
-<<<<<<< HEAD
 
-=======
     
->>>>>>> 31469e3 (Add react-native to dependencies)
     sodium.crypto_secretbox_easy(ciphertext, plaintextBuffer, nonce, key);
 
     return {
@@ -56,10 +50,7 @@ function encryptMessage(plaintext) {
     };
 }
 
-<<<<<<< HEAD
 // Decrypt Message Function
-=======
->>>>>>> 31469e3 (Add react-native to dependencies)
 function decryptMessage(ciphertext, nonce, key) {
     try {
         if (!ciphertext || !nonce || !key) {
@@ -88,22 +79,16 @@ function decryptMessage(ciphertext, nonce, key) {
     }
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 31469e3 (Add react-native to dependencies)
 // Route to Send a Message
 app.post("/send", (req, res) => {
     const { message } = req.body;
 
-<<<<<<< HEAD
     // Input validation
     if (!message || typeof message !== "string") {
         return res.status(400).json({ error: "Invalid message format!" });
-=======
     if (!message) {
         return res.status(400).json({ error: "Message cannot be empty!" });
->>>>>>> 31469e3 (Add react-native to dependencies)
     }
 
     const encryptedMessage = encryptMessage(message);
@@ -148,7 +133,6 @@ setInterval(() => {
     messages = messages.filter(msg => !msg.seenAt || (now - msg.seenAt < 10 * 60 * 1000));
 }, 60 * 1000); // Check every minute
 
-<<<<<<< HEAD
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error("❌ Server error:", err.message);
@@ -158,7 +142,5 @@ app.use((err, req, res, next) => {
 // Start the server
 const PORT = process.env.PORT || 3010;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
-=======
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
->>>>>>> 31469e3 (Add react-native to dependencies)
